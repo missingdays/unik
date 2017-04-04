@@ -89,6 +89,7 @@ int 21h
 ```assembly
 mov al, код символа
 int 29h
+```
 
 ### Вывод при помощи BIOS
 
@@ -119,5 +120,8 @@ int 10h
 ```assembly
 mov ah, 0ah
 mov bh, номер страницы
-mov bl, 
+mov bl, аттрибут символа
+mov al, код символа
+mov cx, число символов
+int 10hg
 ``
