@@ -4,48 +4,48 @@
 - near ptr +- 32кб
 - far ptr > 32кб
 
-```assembler
+```assembly
 met1: ; метка
 JMP met1
 ```
 
 2. Любая команда не содержит в себе проверяемого условия, а обращается к определенным флагам и после анализа их состояния осуществляет (или не осуществляет) переход на указанный адрес.
 
-```assembler
+```assembly
 cmp ax, 5 ; вычисляем разницу, если разница == 0, zf = 1, иначе zf = 0
 jz met1 ; если zf == 1, переход на met1
 ```
 
 jz обращаются к флагу zf
 
-```assembler
+```assembly
 je == jz ; jump equal
 ```
 
-```assembler
+```assembly
 jnz met1; если zf == 0, переход на met1
 ```
 
-```assembler
+```assembly
 jl met1; если меньше перейти. sf != of
 ```
 
-```assembler
+```assembly
 jle met1; меньше либо равно; sf != of or zf == 1
 ```
 
-```assember
+```assembly
 jg met1; больше. sf == of and zf == 0
 ```
 
-```assembler
+```assembly
 jge met1; больше либо равно sf == of
 ```
 
 3. Операция цикла
 loop адрес
 
-```assembler
+```assembly
 mov cx, 15
 met2:
 
@@ -62,7 +62,7 @@ loop met2
 
 ### Команды вывода средствами ОС
 - Вывод символа
-```assembler
+```assembly
 mov ah, 02
 mov dl, код символа (либо число, либо символ в кавычках 'A')
 int 21h
@@ -70,13 +70,13 @@ int 21h
 
 
 - Вывод строки
-```assembler
+```assembly
 mov ah, 09
 mov dx, offset mess
 ```
 
 - Вывод строки в файл
-```assembler
+```assembly
 mov ah, 40
 mov bx, число ; (если 1 - вывод на экран, 2 - создается файл .out, 4 - принтер)
 mov dx, offset mess
@@ -86,7 +86,7 @@ int 21h
 
 - Экспресс вывод символа
 
-```assembler
+```assembly
 mov al, код символа
 int 29h
 
@@ -95,22 +95,29 @@ int 29h
 1. Выбор видео режима
 
 a)
-```assembler
+```assembly
 mov ah, 00h
 mov al, номер видео режима; (1 - 16 цветов, 40х25, 7 - монохром, 80х25)
 ```
 
 b) SVGA
-```
+```assembly
 mov ax, 4F02h
 mov bx, номер режима; (108h - 80x60, 109h - 132x25)
 ```
 
 2. Установка курсора
-
-```
+```assembly
 mov ah, 02
 mov dl, x; координата курсора по горизонтали
 mov dh, y; координата курсора по вертикали
 mov bh, номер страницы; нумерация с 0
+int 10h
 ```
+
+3. Вывод символа
+```assembly
+mov ah, 0ah
+mov bh, номер страницы
+mov bl, 
+``
